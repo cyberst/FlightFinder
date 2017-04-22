@@ -66,7 +66,7 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "Welcome to Flight Finder. Where would you like to fly?";
+      var message = greeting + "Welcome to Flight Finder! Where would you like to fly?";
       sendMessage(senderId, {text: message});
     });
   }
