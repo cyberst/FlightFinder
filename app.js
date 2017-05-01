@@ -100,9 +100,9 @@ function processMessage(event) {
       switch (Words[0]) {
         case "Destination":
           query.destinationPlace = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          console.log("Received Destination Information");
           AutosuggestPlace("Destination");
           sendMessage(senderId, {text: "Where do you want to leave from?"});
-          console.log("Received Destination Information");
           break;
         /*  case "date":
         case "runtime":
