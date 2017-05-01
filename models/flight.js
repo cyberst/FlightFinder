@@ -11,4 +11,4 @@ var FlightSchema = new Schema({
 
 });
 
-module.exports = mongoose.model("Movie", MovieSchema);
+module.exports = mongoose.model("Flight", FlightSchema);
