@@ -114,7 +114,7 @@ function processMessage(event) {
           break;
         case "origin":
           query.originPlace=formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
-          AutosuggestPlace("Origin");
+          AutosuggestPlace("Origin",query.originPlace);
           console.log("Received Origin Information",query.originPlace);
           sendMessage(senderId, {text: "When do you want to fly?"});
           break;
@@ -138,10 +138,14 @@ function AutosuggestPlace(input,query){
   request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
     if (response.statusCode === 200) {
         var placeObject=JSON.parse(body)
-        if(input==="Destination")
-          query.destinationPlace=placeObject.Places[0].PlaceId;
-        else if(input==="Origin")
-          query.originPlace=placeObject.Places[0].PlaceId;
+        if(placeObject.Response==="True"){
+          if(input==="Destination")
+            query.destinationPlace=placeObject.Places[0].PlaceId;
+          else if(input==="Origin")
+            query.originPlace=placeObject.Places[0].PlaceId;
+        }else{
+          sendMessage(userId, {text: "Could not find place."});
+        }
     }
     else {
     sendMessage(userId, {text: "Something went wrong. Try again."});
