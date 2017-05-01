@@ -7,7 +7,7 @@ var FlightSchema = new Schema({
   destinationPlace: {type: String},
   outboundPartialDate : {type: String},
   time: {type: String},
-  person_number: {type: Number}
+  person_number: {type: Number},
 
 });
 
