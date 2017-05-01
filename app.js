@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
 
 
-var query = null;
+var query = new flight();
 
 // Server index page
 app.get("/", function (req, res) {
