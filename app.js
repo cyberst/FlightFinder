@@ -108,13 +108,13 @@ function processMessage(event) {
       switch (Words[0]) {
         case "destination":
           query.destinationPlace = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
-          AutosuggestPlace("Destination",query.destinationPlace);
+          AutosuggestPlace(senderId, "Destination", query.destinationPlace);
           console.log("Received Destination Information");
           sendMessage(senderId, {text: "Where do you want to leave from?"});
           break;
         case "origin":
           query.originPlace=formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
-          AutosuggestPlace("Origin",query.originPlace);
+          AutosuggestPlace(senderId, "Origin", query.originPlace);
           console.log("Received Origin Information",query.originPlace);
           sendMessage(senderId, {text: "When do you want to fly?"});
           break;
@@ -133,7 +133,7 @@ function processMessage(event) {
   }
 }
 
-function AutosuggestPlace(input,query){
+function AutosuggestPlace(userId, input, query){
 
   request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
     if (response.statusCode === 200) {
