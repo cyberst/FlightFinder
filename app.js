@@ -129,7 +129,7 @@ function processMessage(event) {
 
 function AutosuggestPlace(input){
   if(input === "Destination"){
-    request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query.destinationPlace+"&apiKey=" + API_KEY, function (error, response, body) {
+    request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query.destinationPlace+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
       if (response.statusCode === 200) {
           query.destinationPlace=body.Places[0].PlaceId;
       }
