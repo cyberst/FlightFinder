@@ -86,7 +86,7 @@ function processMessage(event) {
   if (!event.message.is_echo) {
     var message = event.message;
     var senderId = event.sender.id;
-    var Words =message.match('[a-zA-Z]+')
+    var Words =message.text.match('[a-zA-Z]+')
     console.log("Received message from senderId: " + senderId);
     console.log("Message is: " + JSON.stringify(message));
 
