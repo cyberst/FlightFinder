@@ -93,13 +93,13 @@ function processMessage(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
       var Words =formattedMsg.match('[a-zA-Z]+')
-      console.log(Words);
+      console.log(Words[0]);
 
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
       switch (Words[0]) {
-        case "Destination":
+        case "destination":
           query.destinationPlace = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
           console.log("Received Destination Information");
           AutosuggestPlace("Destination");
