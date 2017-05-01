@@ -131,7 +131,8 @@ function AutosuggestPlace(input){
   if(input === "Destination"){
     request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query.destinationPlace+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
       if (response.statusCode === 200) {
-          query.destinationPlace=body.Places[0].PlaceId;
+          var placeObject=JSON.parse(body)
+          query.destinationPlace=placeObject.Places[0].PlaceId;
       }
       else {
       sendMessage(userId, {text: "Something went wrong. Try again."});
