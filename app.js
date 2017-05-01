@@ -139,7 +139,7 @@ function AutosuggestPlace(userId, input, query){
     if (response.statusCode === 200) {
         var placeObject=JSON.parse(body)
         //console.log(Array.isArray(placeObject.Places))
-        //console.log(placeObject.Places[0])
+        console.log(placeObject.Places[0])
 
         if(!placeObject.Places[0]){
           if(input==="Destination")
