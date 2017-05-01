@@ -93,6 +93,7 @@ function processMessage(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
       var Words =formattedMsg.match('[a-zA-Z]+')
+      console.log(Words);
 
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
