@@ -7,9 +7,13 @@ var db = mongoose.connect(process.env.MONGODB_URI);
 var Movie = require("./models/movie");
 
 var app = express();
+
+var query;
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
+
+
 
 // Server index page
 app.get("/", function (req, res) {
@@ -78,6 +82,46 @@ function processPostback(event) {
   }
 }
 
+function processMessage(event) {
+  if (!event.message.is_echo) {
+    var message = event.message;
+    var senderId = event.sender.id;
+
+    console.log("Received message from senderId: " + senderId);
+    console.log("Message is: " + JSON.stringify(message));
+
+    // You may get a text or attachment but not both
+    if (message.text) {
+      var formattedMsg = message.text.toLowerCase().trim();
+
+      // If we receive a text message, check to see if it matches any special
+      // keywords and send back the corresponding movie detail.
+      // Otherwise, search for new movie.
+      switch (formattedMsg[0]) {
+        case "Destination":
+      /*  case "date":
+        case "runtime":
+        case "director":
+        case "cast":
+        case "rating":*/
+          setDetail(senderId, formattedMsg);
+          break;
+
+        /*default:
+          findMovie(senderId, formattedMsg);*/
+      }
+    } else if (message.attachments) {
+      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
+    }
+  }
+}
+
+function setDetail(senderId,message){
+  if(message[0]==="Destination"){
+    query.destinationPlace = message-message[0];
+  }
+
+}
 // sends message to user
 function sendMessage(recipientId, message) {
   request({
