@@ -86,27 +86,29 @@ function processMessage(event) {
   if (!event.message.is_echo) {
     var message = event.message;
     var senderId = event.sender.id;
-    var Words =message.text.match('[a-zA-Z]+')
     console.log("Received message from senderId: " + senderId);
     console.log("Message is: " + JSON.stringify(message));
 
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
+      var Words =formattedMsg.match('[a-zA-Z]+')
 
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
       switch (Words[0]) {
         case "Destination":
-      /*  case "date":
+          query.destinationPlace = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          AutosuggestPlace("Destination");
+          sendMessage(senderId, {text: "Where do you want to leave from?"});
+          console.log("Received Destination Information");
+          break;
+        /*  case "date":
         case "runtime":
         case "director":
         case "cast":
         case "rating":*/
-          setDetail(senderId, formattedMsg);
-          console.log("Reseived Destination");
-          break;
 
         /*default:
           findMovie(senderId, formattedMsg);*/
@@ -117,12 +119,21 @@ function processMessage(event) {
   }
 }
 
-function setDetail(senderId,message){
-  if(message[0]==="Destination"){
-    query.destinationPlace = message-message[0];
+function AutosuggestPlace(input){
+  if(input === "Destination"){
+    request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query.destinationPlace+"&apiKey=" + API_KEY, function (error, response, body) {
+      if (!error &amp;&amp; response.statusCode === 200) {
+          query.destinationPlace=body.Places[0].PlaceId;
+      }
+      else {
+      sendMessage(userId, {text: "Something went wrong. Try again."});
+      }
+    });
+
   }
 
 }
+
 // sends message to user
 function sendMessage(recipientId, message) {
   request({
