@@ -138,6 +138,9 @@ function AutosuggestPlace(userId, input, query){
   request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
     if (response.statusCode === 200) {
         var placeObject=JSON.parse(body)
+        console.log(placeObject.Places.lenght)
+        console.log(placeObject.Places[0])
+
         if(placeObject.Places.lenght > 0){
           if(input==="Destination")
             query.destinationPlace=placeObject.Places[0].PlaceId;
