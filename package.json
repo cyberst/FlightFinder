@@ -4,7 +4,7 @@
   "description": "Skyscanner Messenger Bot",
   "main": "app.js",
   "scripts": {
-    "test": "node app.js",
+    "test": "echo \"Error: no test specified\"",
     "start": "node app.js"
   },
   "repository": {

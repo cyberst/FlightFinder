@@ -118,8 +118,8 @@ function processMessage(event) {
         case "cast":
         case "rating":*/
 
-        /*default:
-          findMovie(senderId, formattedMsg);*/
+          default:
+          sendMessage(senderId, {text: "Sorry, I don't understand your request."});
       }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
