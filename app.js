@@ -100,7 +100,7 @@ function processMessage(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
       var Words =formattedMsg.match('[a-zA-Z]+')
-      console.log(Words[0]);
+      console.log(Words);
 
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
@@ -108,9 +108,15 @@ function processMessage(event) {
       switch (Words[0]) {
         case "destination":
           query.destinationPlace = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          AutosuggestPlace("Destination",query.destinationPlace);
           console.log("Received Destination Information");
-          AutosuggestPlace("Destination");
           sendMessage(senderId, {text: "Where do you want to leave from?"});
+          break;
+        case "origin":
+          query.originPlace=formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          AutosuggestPlace("Origin");
+          console.log("Received Origin Information",query.originPlace);
+          sendMessage(senderId, {text: "When do you want to fly?"});
           break;
         /*  case "date":
         case "runtime":
@@ -127,19 +133,21 @@ function processMessage(event) {
   }
 }
 
-function AutosuggestPlace(input){
-  if(input === "Destination"){
-    request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query.destinationPlace+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
-      if (response.statusCode === 200) {
-          var placeObject=JSON.parse(body)
-          query.destinationPlace=placeObject.Places[0].PlaceId;
-      }
-      else {
-      sendMessage(userId, {text: "Something went wrong. Try again."});
-      }
-    });
+function AutosuggestPlace(input,query){
 
-  }
+  request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
+    if (response.statusCode === 200) {
+        var placeObject=JSON.parse(body)
+        if(input==="Destination")
+          query.destinationPlace=placeObject.Places[0].PlaceId;
+        else if(input==="Origin")
+          query.originPlace=placeObject.Places[0].PlaceID;
+    }
+    else {
+    sendMessage(userId, {text: "Something went wrong. Try again."});
+    }
+  });
+
 
 }
 
