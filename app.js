@@ -141,7 +141,7 @@ function AutosuggestPlace(userId, input, query){
         //console.log(Array.isArray(placeObject.Places))
         console.log(placeObject.Places[0])
 
-        if(!placeObject.Places[0]){
+        if(placeObject.Places[0]){
           if(input==="Destination")
             query.destinationPlace=placeObject.Places[0].PlaceId;
           else if(input==="Origin")
