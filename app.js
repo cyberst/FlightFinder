@@ -13,7 +13,14 @@ app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
 
 
-var query = new flight();
+var query = {
+  user_id: {type: String},
+  originPlace: {type: String},
+  destinationPlace: {type: String},
+  outboundPartialDate : {type: String},
+  time: {type: String},
+  person_number: {type: Number}
+};
 
 // Server index page
 app.get("/", function (req, res) {
