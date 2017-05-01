@@ -86,7 +86,7 @@ function processMessage(event) {
   if (!event.message.is_echo) {
     var message = event.message;
     var senderId = event.sender.id;
-
+    var Words =message.match('[a-zA-Z]+')
     console.log("Received message from senderId: " + senderId);
     console.log("Message is: " + JSON.stringify(message));
 
@@ -97,7 +97,7 @@ function processMessage(event) {
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
-      switch (formattedMsg[0]) {
+      switch (Words[0]) {
         case "Destination":
       /*  case "date":
         case "runtime":
@@ -105,6 +105,7 @@ function processMessage(event) {
         case "cast":
         case "rating":*/
           setDetail(senderId, formattedMsg);
+          console.log("Reseived Destination");
           break;
 
         /*default:
