@@ -141,7 +141,7 @@ function AutosuggestPlace(input,query){
         if(input==="Destination")
           query.destinationPlace=placeObject.Places[0].PlaceId;
         else if(input==="Origin")
-          query.originPlace=placeObject.Places[0].PlaceID;
+          query.originPlace=placeObject.Places[0].PlaceId;
     }
     else {
     sendMessage(userId, {text: "Something went wrong. Try again."});
