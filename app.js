@@ -92,7 +92,7 @@ function processMessage(event) {
 
       var Words =formattedMsg.match('[a-zA-Z]+');
       console.log(Words);
-      if(Words === NULL){
+      if(Words === null){
         sendMessage(senderId, {text: "Something went wrong, please try again."});
         return;
       }
