@@ -88,8 +88,8 @@ function processMessage(event) {
     console.log("Message is: " + JSON.stringify(message));
 
     if (message.text) {
-      var Words =formattedMsg.match('[a-zA-Z]+');
       var formattedMsg = message.text.toLowerCase().trim();
+      var Words =formattedMsg.match('[a-zA-Z]+');
       console.log(Words);
 
       switch (Words[0]) {
