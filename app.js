@@ -158,9 +158,9 @@ function findCarrier(id, name){
   }
 }
 
-function AutosuggestPlace(userId, input, query){
+function AutosuggestPlace(userId, input, input_query){
 
-  request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+query+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
+  request("http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/US/USD/en-GG?"+"query="+input_query+"&apiKey=" + process.env.API_KEY, function (error, response, body) {
     if (response.statusCode === 200) {
         var placeObject=JSON.parse(body);
         //console.log(Array.isArray(placeObject.Places))
