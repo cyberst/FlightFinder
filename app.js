@@ -16,13 +16,15 @@ var found_flight = {};
 
 // Server index page
 app.get("/", function (req, res) {
-  res.send("Deployed!");
+  res.send("Welcome to Flight Finder Bot! Please visit our Facebook Page to start chating.");
+  res.send("https://www.facebook.com/SkyscannerFlightFinder/");
+
 });
 
 // Facebook Webhook
 // Used for verification
 app.get("/bot", function (req, res) {
-  if (req.query["hub.verify_token"] === "verify_token_ali") {
+  if (req.query["hub.verify_token"] === VERIFICATION_TOKEN) {
     console.log("Verified webhook");
     res.status(200).send(req.query["hub.challenge"]);
   } else {
@@ -74,9 +76,8 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "Welcome to Flight Finder! Where would you like to fly?";
+      var message = greeting + "Welcome to Flight Finder! Where would you like to fly? You can start from begining by typing R at any point.";
       sendMessage(senderId, {text: message});
-      sendMessage(senderId, {text:"You can start from begining by typing R at any point."});
     });
   }
 }
