@@ -89,8 +89,13 @@ function processMessage(event) {
 
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
+
       var Words =formattedMsg.match('[a-zA-Z]+');
       console.log(Words);
+      if(!Words[0]){
+        sendMessage(senderId, {text: "Something went wrong, please try again."});
+        return;
+      }
 
       switch (Words[0]) {
         case "destination":
