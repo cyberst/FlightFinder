@@ -140,7 +140,7 @@ function requestFlight(userId){
 
         var origin = flight.Places.forEach(findPlace(flight.Quotes[0].OutboundLeg.OriginId));
 
-        var message = "The cheapest flight from " + origin "to" + destination ;
+        var message = "The cheapest flight from " + origin + "to" + destination ;
         sendMessage(userId, {text: message});
 
       }
