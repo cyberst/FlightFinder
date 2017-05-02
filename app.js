@@ -74,8 +74,9 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "Welcome to Flight Finder! Where would you like to fly? You can start from begining by typing R at any point.";
+      var message = greeting + "Welcome to Flight Finder! Where would you like to fly?";
       sendMessage(senderId, {text: message});
+      sendMessage(senderId, {text:"You can start from begining by typing R at any point."});
     });
   }
 }
@@ -112,9 +113,9 @@ function processMessage(event) {
           console.log("Date:" + query.outboundPartialDate);
           sendMessage(senderId, {text: "How many people are you going to be?"});
           break;
-        case "people":
-          found_flight.people_number = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
-          console.log("People number: " + found_flight.people_number);
+        case "person":
+          found_flight.person_number = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          console.log("person number: " + found_flight.person_number);
           sendMessage(senderId, {text: "Shall I look for the flight?"});
           break;
         case "yes":
@@ -149,8 +150,8 @@ function requestFlight(userId){
 
         });
         console.log("Carrier Name :" + carrier_name);
-        var total_cost=parseInt(flight.Quotes[0].MinPrice) * parseInt(found_flight.people_number);
-        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " + found_flight.people_number + " people, is " + total_cost.toString() + " dollars with " + carrier_name;
+        var total_cost=parseInt(flight.Quotes[0].MinPrice) * parseInt(found_flight.person_number);
+        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " + found_flight.person_number + " people, is " + total_cost.toString() + " dollars with " + carrier_name;
         sendMessage(userId, {text: message});
 
       }
