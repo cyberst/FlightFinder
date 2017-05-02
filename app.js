@@ -152,7 +152,7 @@ function requestFlight(userId){
         });
         console.log("Carrier Name :" + carrier_name);
         var total_cost=parseInt(flight.Quotes[0].MinPrice) * parseInt(found_flight.people_number);
-        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " found_flight.people_number " people, is " + total_cost.toString() + " dollars with " + carrier_name;
+        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " found_flight.people_number + " people, is " + total_cost.toString() + " dollars with " + carrier_name;
         sendMessage(userId, {text: message});
 
       }
