@@ -122,7 +122,7 @@ function processMessage(event) {
         case "yes":
           requestFlight(senderId);
           break;
-        case "R":
+        case "r":
           query = {};
           found_flight = {};
           console.log("Restarted the dialog");
