@@ -153,7 +153,7 @@ function requestFlight(userId){
 }
 
 function findCarrier(id, name){
-  if(id === CarrierId){
+  if(id === this.CarrierId){
     name=Name;
   }
 }
