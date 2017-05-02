@@ -14,18 +14,18 @@ app.listen((process.env.PORT || 5000));
 
 
 var query = {
-  originPlace: {type: String},
-  destinationPlace: {type: String},
-  outboundPartialDate : {type: String},
-  carrier_id: {type: String},
-  person_number: {type: Number}
+  this.originPlace: {type: String},
+  this.destinationPlace: {type: String},
+  this.outboundPartialDate : {type: String},
+  this.carrier_id: {type: String},
+  this.person_number: {type: Number}
 };
 var found_flight = {
-  originPlace: {type: String},
-  destinationPlace: {type: String},
-  outboundPartialDate : {type: String},
-  carrier_id: {type: String},
-  person_number: {type: Number}
+  this.originPlace: {type: String},
+  this.destinationPlace: {type: String},
+  this.outboundPartialDate : {type: String},
+  this.carrier_id: {type: String},
+  this.person_number: {type: Number}
 };
 
 // Server index page
