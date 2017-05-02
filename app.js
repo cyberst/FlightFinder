@@ -155,7 +155,7 @@ function requestFlight(userId){
 
       }
       else{
-        sendMessage(userId, {text: "Something went wrong type "R" to start again. "});
+        sendMessage(userId, {text: "Something went wrong type R to start again. "});
       }
 
     }
