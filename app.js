@@ -28,7 +28,7 @@ app.get("/", function (req, res) {
 
 // Facebook Webhook
 // Used for verification
-app.get("/webhook", function (req, res) {
+app.get("/bot", function (req, res) {
   if (req.query["hub.verify_token"] === "verify_token_ali") {
     console.log("Verified webhook");
     res.status(200).send(req.query["hub.challenge"]);
@@ -39,7 +39,7 @@ app.get("/webhook", function (req, res) {
 });
 
 // All callbacks for Messenger will be POST-ed here
-app.post("/webhook", function (req, res) {
+app.post("/bot", function (req, res) {
   // Make sure this is a page subscription
   if (req.body.object == "page") {
     // Iterate over each entry
@@ -175,7 +175,9 @@ function AutosuggestPlace(userId, input, query){
             console.log("Received Origin Information",query.originPlace);
             sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy mm dd or yyyy mm"});
           }
-        }else{
+
+        }
+        else{
           sendMessage(userId, {text: "Could not find place."});
         }
     }
