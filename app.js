@@ -123,6 +123,7 @@ function processMessage(event) {
         case "date":
           query.outboundPartialDate = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
           found_flight.outboundPartialDate = query.outboundPartialDate;
+          console.log("Date:" + query.outboundPartialDate);
           sendMessage(senderId, {text: "Shall I look for the flight?"});
           break;
         case "yes":
@@ -182,13 +183,15 @@ function AutosuggestPlace(userId, input, query){
             query.destinationPlace=placeObject.Places[0].PlaceId;
             found_flight.destinationPlace=placeObject.Places[0].PlaceName;
             console.log("Received Destination Information");
+            console.log(query.destinationPlace);
             sendMessage(userId, {text: "Where do you want to leave from?"});
           }
           else if(input==="Origin"){
             query.originPlace=placeObject.Places[0].PlaceId;
             found_flight.originPlace=placeObject.Places[0].PlaceName;
             console.log("Received Origin Information",query.originPlace);
-            sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy mm dd or yyyy mm"});
+            console.log(query.originPlace);
+            sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy-mm-dd or yyyy-mm"});
           }
 
         }
