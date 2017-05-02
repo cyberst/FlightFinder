@@ -180,10 +180,11 @@ function AutosuggestPlace(userId, input, query){
 
         if(placeObject.Places[0]){
           if(input==="Destination"){
-            query.destinationPlace=placeObject.Places[0].PlaceId;
+            query.destinationPlace = placeObject.Places[0].PlaceId;
             found_flight.destinationPlace=placeObject.Places[0].PlaceName;
             console.log("Received Destination Information");
             console.log(query.destinationPlace);
+            console.log(placeObject.Places[0].PlaceId);
             sendMessage(userId, {text: "Where do you want to leave from?"});
           }
           else if(input==="Origin"){
@@ -191,6 +192,7 @@ function AutosuggestPlace(userId, input, query){
             found_flight.originPlace=placeObject.Places[0].PlaceName;
             console.log("Received Origin Information",query.originPlace);
             console.log(query.originPlace);
+            console.log(placeObject.Places[0].PlaceId);
             sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy-mm-dd or yyyy-mm"});
           }
 
