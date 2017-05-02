@@ -173,7 +173,7 @@ function AutosuggestPlace(userId, input, query){
           else if(input==="Origin"){
             query.originPlace=placeObject.Places[0].PlaceId;
             console.log("Received Origin Information",query.originPlace);
-            sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy-mm-dd or yyyy-mm"});
+            sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy mm dd or yyyy mm"});
           }
         }else{
           sendMessage(userId, {text: "Could not find place."});
