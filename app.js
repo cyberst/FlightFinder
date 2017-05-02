@@ -127,13 +127,7 @@ function processMessage(event) {
           found_flight = {};
           console.log("Restarted the dialog");
           sendMessage(senderId, {text: " Hi again! Where would you like to fly?"});
-
-
-
-        /*case "director":
-        case "cast":
-        case "rating":*/
-
+          break;
         default:
           sendMessage(senderId, {text: "Sorry, I don't understand your request."});
       }
@@ -157,7 +151,8 @@ function requestFlight(userId){
 
         });
         console.log("Carrier Name :" + carrier_name);
-        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " found_flight.people_number " people, is " + flight.Quotes[0].MinPrice*found_flight.people_number + " dollars with " + carrier_name;
+        var total_cost=parseInt(flight.Quotes[0].MinPrice) * parseInt(found_flight.people_number);
+        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " found_flight.people_number " people, is " + total_cost + " dollars with " + carrier_name;
         sendMessage(userId, {text: message});
 
       }
