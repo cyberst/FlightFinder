@@ -126,7 +126,7 @@ function processMessage(event) {
           sendMessage(senderId, {text: "Shall I look for the flight?"});
           break;
         case "yes":
-          requestFlight(userId);
+          requestFlight(senderId);
         /*case "director":
         case "cast":
         case "rating":*/
