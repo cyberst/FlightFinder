@@ -165,10 +165,11 @@ function AutosuggestPlace(userId, input, query){
         console.log(placeObject.Places[0]);
 
         if(placeObject.Places[0]){
-          if(input==="Destination")
+          if(input==="Destination"){
             query.destinationPlace=placeObject.Places[0].PlaceId;
             console.log("Received Destination Information");
             sendMessage(userId, {text: "Where do you want to leave from?"});
+          }
           else if(input==="Origin")
             query.originPlace=placeObject.Places[0].PlaceId;
             console.log("Received Origin Information",query.originPlace);
