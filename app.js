@@ -77,7 +77,7 @@ function processPostback(event) {
         name = bodyObj.first_name;
         greeting = "Hi " + name + ". ";
       }
-      var message = greeting + "Welcome to Flight Finder! Where would you like to fly?";
+      var message = greeting + "Welcome to Flight Finder! Where would you like to fly? You can start from begining by typing R at any point.";
       sendMessage(senderId, {text: message});
     });
   }
@@ -112,11 +112,24 @@ function processMessage(event) {
           query.outboundPartialDate = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
           found_flight.outboundPartialDate = query.outboundPartialDate;
           console.log("Date:" + query.outboundPartialDate);
+          sendMessage(senderId, {text: "How many people are you going to be?"});
+          break;
+        case "people":
+          found_flight.people_number = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          console.log("People number: " + found_flight.people_number);
           sendMessage(senderId, {text: "Shall I look for the flight?"});
           break;
         case "yes":
           requestFlight(senderId);
           break;
+        case "R":
+          query = {};
+          found_flight = {};
+          console.log("Restarted the dialog");
+          sendMessage(senderId, {text: " Hi again! Where would you like to fly?"});
+
+
+
         /*case "director":
         case "cast":
         case "rating":*/
@@ -130,11 +143,6 @@ function processMessage(event) {
   }
 }
 
-function findCarrier(id, name){
-  if(id === this.CarrierId){
-    name=Name;
-  }
-}
 
 function requestFlight(userId){
   request("http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-GG/" + query.originPlace + "/" + query.destinationPlace + "/" + query.outboundPartialDate + "/?apiKey=" + process.env.API_KEY, function (error, response, body) {
@@ -149,7 +157,7 @@ function requestFlight(userId){
 
         });
         console.log("Carrier Name :" + carrier_name);
-        var message = "The cheapest flight from " + found_flight.originPlace + "to" + found_flight.destinationPlace + "on" + found_flight.outboundPartialDate + "is" + flight.Quotes[0].MinPrice + "dollars with" + carrier_name;
+        var message = "The cheapest flight from " + found_flight.originPlace + " to " + found_flight.destinationPlace + " on " + found_flight.outboundPartialDate + " for " found_flight.people_number " people, is " + flight.Quotes[0].MinPrice*found_flight.people_number + " dollars with " + carrier_name;
         sendMessage(userId, {text: message});
 
       }
