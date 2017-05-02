@@ -1,10 +1,8 @@
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
-var mongoose = require("mongoose");
 
-var db = mongoose.connect(process.env.MONGODB_URI);
-var Movie = require("./models/flight");
+
 
 var app = express();
 
@@ -59,8 +57,7 @@ function processPostback(event) {
   var payload = event.postback.payload;
 
   if (payload === "Greeting") {
-    // Get user's first name from the User Profile API
-    // and include it in the greeting
+
     request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
       qs: {
@@ -90,15 +87,11 @@ function processMessage(event) {
     console.log("Received message from senderId: " + senderId);
     console.log("Message is: " + JSON.stringify(message));
 
-    // You may get a text or attachment but not both
     if (message.text) {
+      var Words =formattedMsg.match('[a-zA-Z]+');
       var formattedMsg = message.text.toLowerCase().trim();
-      var Words =formattedMsg.match('[a-zA-Z]+')
       console.log(Words);
 
-      // If we receive a text message, check to see if it matches any special
-      // keywords and send back the corresponding movie detail.
-      // Otherwise, search for new movie.
       switch (Words[0]) {
         case "destination":
           query.destinationPlace = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
