@@ -149,7 +149,8 @@ function requestFlight(userId){
   })
 
 }
-string function findPlace(id){
+
+function findPlace(id){
   if(id === PlaceId){
     return Name;
   }
