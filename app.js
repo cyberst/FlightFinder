@@ -127,6 +127,7 @@ function processMessage(event) {
           break;
         case "yes":
           requestFlight(senderId);
+          break;
         /*case "director":
         case "cast":
         case "rating":*/
@@ -145,13 +146,16 @@ function requestFlight(userId){
     if (response.statusCode === 200) {
       var flight=JSON.parse(body);
       if(flight.Quotes[0]){
-
+        console.log(flight.Quotes[0])
         var carrier_name;
         flight.Carriers.forEach(findCarrier(flight.Quotes[0].OutboundLeg.CarrierIds[0],carrier_name));
-
+        console.log("Carrier Name :" + carrier_name);
         var message = "The cheapest flight from " + found_flight.originPlace + "to" + found_flight.destinationPlace + "on" + found_flight.outboundPartialDate + "is" + flight.Quotes[0].MinPrice + "dollars with" + carrier_name;
         sendMessage(userId, {text: message});
 
+      }
+      else{
+        sendMessage(userId, {text: "Something went wrong type "R" to start again. "});
       }
 
     }
