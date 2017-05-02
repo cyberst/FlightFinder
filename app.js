@@ -170,10 +170,11 @@ function AutosuggestPlace(userId, input, query){
             console.log("Received Destination Information");
             sendMessage(userId, {text: "Where do you want to leave from?"});
           }
-          else if(input==="Origin")
+          else if(input==="Origin"){
             query.originPlace=placeObject.Places[0].PlaceId;
             console.log("Received Origin Information",query.originPlace);
             sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy-mm-dd or yyyy-mm"});
+          }
         }else{
           sendMessage(userId, {text: "Could not find place."});
         }
