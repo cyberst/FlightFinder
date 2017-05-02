@@ -20,6 +20,13 @@ var query = {
   carrier_id: {type: String},
   person_number: {type: Number}
 };
+var found_flight = {
+  originPlace: {type: String},
+  destinationPlace: {type: String},
+  outboundPartialDate : {type: String},
+  carrier_id: {type: String},
+  person_number: {type: Number}
+};
 
 // Server index page
 app.get("/", function (req, res) {
@@ -115,14 +122,16 @@ function processMessage(event) {
           break;
         case "date":
           query.outboundPartialDate = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
+          found_flight.outboundPartialDate = query.outboundPartialDate;
           sendMessage(senderId, {text: "Shall I look for the flight?"});
-        //case "yes":
-          //requestFlight(userId);
+          break;
+        case "yes":
+          requestFlight(userId);
         /*case "director":
         case "cast":
         case "rating":*/
 
-          default:
+        default:
           sendMessage(senderId, {text: "Sorry, I don't understand your request."});
       }
     } else if (message.attachments) {
@@ -131,16 +140,16 @@ function processMessage(event) {
   }
 }
 
-/*function requestFlight(userId){
+function requestFlight(userId){
   request("http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-GG/" + query.originPlace + "/" + query.destinationPlace + "/" + query.outboundPartialDate + "/?apiKey=" + process.env.API_KEY, function (error, response, body) {
     if (response.statusCode === 200) {
       var flight=JSON.parse(body);
       if(flight.Quotes[0]){
-        var destination  = flight.Places.forEach(findPlace(flight.Quotes[0].OutboundLeg.DestinationId));
 
-        var origin = flight.Places.forEach(findPlace(flight.Quotes[0].OutboundLeg.OriginId));
+        var carrier_name;
+        flight.Carriers.forEach(findCarrier(flight.Quotes[0].OutboundLeg.CarrierIds[0],carrier_name));
 
-        var message = "The cheapest flight from " + origin + "to" + destination ;
+        var message = "The cheapest flight from " + found_flight.originPlace + "to" + found_flight.destinationPlace + "on" + found_flight.outboundPartialDate + "is" + flight.Quotes[0].MinPrice + "dollars with" + carrier_name;
         sendMessage(userId, {text: message});
 
       }
@@ -148,11 +157,11 @@ function processMessage(event) {
     }
   })
 
-}*/
+}
 
-function findPlace(id){
-  if(id === PlaceId){
-    return Name;
+function findCarrier(id, name){
+  if(id === CarrierId){
+    name=Name;
   }
 }
 
@@ -167,11 +176,13 @@ function AutosuggestPlace(userId, input, query){
         if(placeObject.Places[0]){
           if(input==="Destination"){
             query.destinationPlace=placeObject.Places[0].PlaceId;
+            found_flight.destinationPlace=placeObject.Places[0].PlaceName;
             console.log("Received Destination Information");
             sendMessage(userId, {text: "Where do you want to leave from?"});
           }
           else if(input==="Origin"){
             query.originPlace=placeObject.Places[0].PlaceId;
+            found_flight.originPlace=placeObject.Places[0].PlaceName;
             console.log("Received Origin Information",query.originPlace);
             sendMessage(userId, {text: "When do you want to fly? Please enter the date as yyyy mm dd or yyyy mm"});
           }
