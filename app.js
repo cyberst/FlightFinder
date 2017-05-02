@@ -116,8 +116,8 @@ function processMessage(event) {
         case "date":
           query.outboundPartialDate = formattedMsg.substr(formattedMsg.indexOf(" ") + 1);
           sendMessage(senderId, {text: "Shall I look for the flight?"});
-        case "yes":
-          requestFlight(userId);
+        //case "yes":
+          //requestFlight(userId);
         /*case "director":
         case "cast":
         case "rating":*/
@@ -131,7 +131,7 @@ function processMessage(event) {
   }
 }
 
-function requestFlight(userId){
+/*function requestFlight(userId){
   request("http://partners.api.skyscanner.net/apiservices/browsequotes/v1.0/US/USD/en-GG/" + query.originPlace + "/" + query.destinationPlace + "/" + query.outboundPartialDate + "/?apiKey=" + process.env.API_KEY, function (error, response, body) {
     if (response.statusCode === 200) {
       var flight=JSON.parse(body);
@@ -148,7 +148,7 @@ function requestFlight(userId){
     }
   })
 
-}
+}*/
 
 function findPlace(id){
   if(id === PlaceId){
