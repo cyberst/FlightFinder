@@ -16,8 +16,8 @@ var found_flight = {};
 
 // Server index page
 app.get("/", function (req, res) {
-  res.send("Welcome to Flight Finder Bot! Please visit our Facebook Page to start chating.");
-  res.send("www.facebook.com/SkyscannerFlightFinder");
+  res.send("Welcome to Flight Finder Bot! Please visit our Facebook Page to start chating.\nwww.facebook.com/SkyscannerFlightFinder");
+
 
 });
 
