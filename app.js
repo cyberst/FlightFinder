@@ -17,7 +17,7 @@ var found_flight = {};
 // Server index page
 app.get("/", function (req, res) {
   res.send("Welcome to Flight Finder Bot! Please visit our Facebook Page to start chating.");
-  res.send("https://www.facebook.com/SkyscannerFlightFinder/");
+  res.send("www.facebook.com/SkyscannerFlightFinder");
 
 });
 
@@ -78,7 +78,7 @@ function processPostback(event) {
       }
       var message = greeting + "Welcome to Flight Finder! Where would you like to fly? You can start from begining by typing R at any point.";
       sendMessage(senderId, {text: message});
-    });
+      });
   }
 }
 
